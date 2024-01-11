@@ -1,7 +1,4 @@
 
-Target IP: 10.10.136.175
-Attackbox IP: 10.10.137.228
-
 
 Start off with nmap default scripts (-sC), show versions (-sV) and output all formats (-oA).
 `sudo nmap -sC -sV -oA nmap 10.10.136.175`
