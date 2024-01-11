@@ -3,7 +3,7 @@
 Start off with nmap default scripts (-sC), show versions (-sV) and output all formats (-oA).
 `sudo nmap -sC -sV -oA nmap 10.10.136.175`
 
-![Alt text](attachments/Pasted image 20231123102936.png)
+![Alt text](./attachments/Pasted_image_20231123102936.png)
 We have 3 ports
 21: FTP server
 22: SSH server
