@@ -11,7 +11,7 @@ We have 3 ports
 
 There is a file with a note for 'jake' on the FTP server and I can login anonymously. When prompted with a username, I can put 'anonymous' and leave the password empty when prompted (just press enter). 
 After login, I can see there is a file there and can use the 'less' command to show the content of the text file: 
-![[attachments/Pasted image 20231123103006.png)
+![Alt text](./attachments/Pasted_image_20231123103006.png)
 
 I know now that user 'jake' has a weak password and that there are 3 users in total:
 - jake
@@ -29,7 +29,7 @@ In the meantime, I also kick off a gobuster to see if we can find any other dire
 `gobuster dir -u http://10.10.136.175 -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt`
 
 The gobuster didn't result into anything, but Hydra did find a password for the user jake:
-![[attachments/Pasted image 20231123103050.png)
+![Alt text](./attachments/Pasted_image_20231123103050.png)
 
 I can now login to the SSH server with: 
 Username: jake
@@ -37,11 +37,11 @@ Password: 987654321
 `ssh jake@10.10.136.175`
 
 We are now logged into the SSH server!
-![[attachments/Pasted image 20231123103106.png)
+![Alt text](./attachments/Pasted_image_20231123103106.png)
 
 I can now try to move to other folders. When I move up to the home directory, the folders for amy and holt are there. If we look into holt's directory and list all files, we find 
 ## Flag 1 user.txt: ee11cbb19052e40b07aac0ca060c23ee
-![[attachments/Pasted image 20231123103128.png)
+![Alt text](./attachments/Pasted_image_20231123103128.png)
 
 Now I need to escalate my privileges to find the root.txt flag.
 I will start getting the LinEnum package onto the SSH server. The script I used [can be found here](https://github.com/rebootuser/LinEnum.git)
@@ -52,23 +52,23 @@ I now have the file, but need to make it executable first with the following com
 `chmod +x LinEnum.sh`
 
 All steps are in the following image:
-![[attachments/Pasted image 20231123103141.png)
+![Alt text](./attachments/Pasted_image_20231123103141.png)
 
 Now I can run the LinEnum script with:
 `./LinEnum.sh`
 
 After the enumeration, I can see that there is an interesting SUID file
-![[attachments/Pasted image 20231123103201.png)
+![Alt text](./attachments/Pasted_image_20231123103201.png)
 
 Looking at [GTFO bins](https://gtfobins.github.io/), there is an exploit I can try to run to get sudo privileges:
-![[attachments/Pasted image 20231123103212.png)
+![Alt text](./attachments/Pasted_image_20231123103212.png)
 
 After running the command, **we get root access**. To now stabelize the shell and to have autocomplete, I used the following command:
 `python3 -c 'import pty;pty.spawn("/bin/bash")'`
 
 After this, I was able to access the root directory and find the second and last flag:
 ### **root.txt: 63a9f0ea7bb98050796b649e85481845**
-![[attachments/Pasted image 20231123103222.png)
+![Alt text](./attachments/Pasted_image_20231123103222.png)
 
 Thanks for reading!
 
